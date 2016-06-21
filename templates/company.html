@@ -1,0 +1,125 @@
+{% extends "layout.html" %}
+{% block content %}
+<section class="content-header">
+	<h1>
+		{{ company.name }}
+
+		{% if company.started_at %}
+			<small>Início de Actividade: {{ company.started_at }}</small>
+		{% endif %}
+	</h1>
+</section>
+<section class="content">
+	<!-- ./col -->
+	<div class="row">
+		<div class="col-md-8" style="width: 668px !important;">
+			<div class="box box-solid" style="height: 280px; overflow-y: auto; width: 638px;">
+				<!-- /.box-header -->
+				<div class="box-body">
+					<dl class="dl-horizontal">
+						<dt>Nif</dt>
+						<dd>{{ company.identifier }}</dd>
+
+						{% if company.cae %}
+							<dt>CAE</dt>
+							<dd>{{ company.cae }}</dd>
+						{% endif %}
+						<abb id="cae_text" style="display: none;"></abb>
+						{% if company.state %}
+							<dt>Distrito</dt>
+							<dd>{{ company.state }}</dd>
+						{% endif %}
+
+						{% if company.city %}
+							<dt>Concelho</dt>
+							<dd>{{ company.city }}</dd>
+						{% endif %}
+
+						<tmp id="comp-info">
+							<br>
+						    <div class="center-force">
+								<h5 class="center-forced">A Carregar Mais Informações</h5>
+								<i class="fa fa-spinner fa-spin fa-2x center-forced" aria-hidden="true"></i>
+					        </div>
+						</tmp>
+					</dl>
+				</div>
+				<!-- /.box-body -->
+			</div>
+			<!-- /.box -->
+		</div>
+		<!-- ./col -->
+		<div class="md-col-4" style="">
+		    <div style="padding-bottom: 20px">
+				<script type="text/javascript">
+					google_ad_client = "ca-pub-3899991868406055";
+					google_ad_slot = "8431215722";
+					google_ad_width = 336;
+					google_ad_height = 280;
+				</script>
+				<!-- company 1 -->
+				<script type="text/javascript"
+					src="//pagead2.googlesyndication.com/pagead/show_ads.js"></script>
+		    </div>
+		</div>
+	</div>
+		<div class="row" id="comp-about-div" style="display: none;">
+			<div class="col-md-12">
+				<!-- Custom Tabs -->
+				<div class="nav-tabs-custom">
+					<ul class="nav nav-tabs" id="comp-about-tiles">
+					</ul>
+					<div class="tab-content" id="comp-about-content">
+					</div>
+					<!-- /.tab-content -->
+				</div>
+				<!-- nav-tabs-custom -->
+			</div>
+			<!-- /.col -->
+		</div>
+	<h2 class="page-header companies-h2">Empresas Com O Mesmo CAE</h2>
+	<div class="row">
+		{% for comp in random_companies %}
+		<div class="col-md-3 col-sm-6 col-xs-12">
+			<a href="/{{ comp.identifier }}/" class="related-company-link">
+				<div class="info-box related-company-color">
+					<div class="related-compamy">
+						<span class="info-box-text">{{ comp.name }}</span>
+						<span class="info-box-number">{{ comp.state }}</span>
+						<hr class="company-divider">
+						<span class="progress-description">
+						Início de Actividade: {{ comp.started_at|default:"Desconhecido" }}
+						</span>
+					</div>
+				</div>
+			</a>
+		</div>
+		{% endfor %}
+	</div>
+	<br>
+	<div id="disqus_thread"></div>
+	<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+</section>
+{% endblock%}
+{% block js %}
+<script>
+    var disqus_config = function () {
+        this.page.url = document.URL;
+        this.page.identifier = '{{ company.id }}';
+    };
+    (function() {
+        var d = document, s = d.createElement('script');
+
+        s.src = '//getcompany.disqus.com/embed.js';
+
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<script>
+	$(document).ready(function() {
+		crawl("{{ token }}");
+	});
+</script>
+{% endblock %}

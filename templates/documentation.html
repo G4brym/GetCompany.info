@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+{% block content %}
+<section class="content">
+	<br>
+	<div class="index-title">
+	    <h1>Ainda Não Disponivel</h1>
+	    <p>Anunciaremos quando for lançado</p>
+	</div>
+
+	<hr class="companies-hr">
+
+	<h2 class="page-header companies-h2">Veja Também As Seguintes Empresas</h2>
+	<div class="row">
+		{% for campany in random_companies %}
+		<div class="col-md-3 col-sm-6 col-xs-12">
+			<a href="/{{ campany.identifier }}/" class="related-company-link">
+				<div class="info-box related-company-color">
+					<div class="related-compamy">
+						<span class="info-box-text">{{ campany.name }}</span>
+						<span class="info-box-number">{{ campany.state }}</span>
+						<hr class="company-divider">
+						<span class="progress-description">
+						Início de Actividade: {{ campany.started_at|default:"Desconhecido" }}
+						</span>
+					</div>
+				</div>
+			</a>
+		</div>
+		{% endfor %}
+	</div>
+</section>
+{% endblock%}

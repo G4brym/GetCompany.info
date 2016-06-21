@@ -1,0 +1,161 @@
+{% extends "layout.html" %}
+{% block content %}
+<section class="content-header">
+	<h1>
+		{{ company.name }}
+
+		{% if company.started_at %}
+			<small>Início de Actividade: {{ company.started_at }}</small>
+		{% endif %}
+	</h1>
+</section>
+<section class="content">
+	<!-- ./col -->
+	<div class="row">
+		<div class="col-md-8">
+			<div class="box box-solid" style="height: 280px; overflow-y: auto;">
+				<!-- /.box-header -->
+				<div class="box-body">
+					<dl class="dl-horizontal">
+						<dt>Nif</dt>
+						<dd>{{ company.identifier }}</dd>
+						{% if company.address %}
+							<dt>Morada</dt>
+							<dd>{{ company.address }}</dd>
+						{% endif %}
+
+						{% if company.phone %}
+							<dt>Telefone</dt>
+							<dd>{{ company.phone }}</dd>
+						{% endif %}
+
+						{% if company.mobile %}
+							<dt>Telemóvel</dt>
+							<dd>{{ company.mobile }}</dd>
+						{% endif %}
+
+						{% if company.fax %}
+							<dt>Fax</dt>
+							<dd>{{ company.fax }}</dd>
+						{% endif %}
+
+						{% if company.email %}
+							<dt>E-mail</dt>
+							<dd>{{ company.email }}</dd>
+						{% endif %}
+
+						{% if company.cae %}
+							<dt>CAE</dt>
+							<dd>{{ company.cae }}</dd>
+						{% endif %}
+
+						{% if company.state %}
+							<dt>Distrito</dt>
+							<dd>{{ company.state }}</dd>
+						{% endif %}
+
+						{% if company.city %}
+							<dt>Concelho</dt>
+							<dd>{{ company.city }}</dd>
+						{% endif %}
+
+						{% if company.links %}
+							<br>
+							<dt>Links</dt>
+							<dd>
+								{% if company.website %}
+									<a class="btn btn-sm btn-social-icon btn-website" href="{{ company.website }}" target="_blank"><i class="fa fa-home"></i></a>
+								{% endif %}
+								{% if company.facebook %}
+									<a class="btn btn-sm btn-social-icon btn-facebook" href="{{ company.facebook }}" target="_blank"><i class="fa fa-facebook"></i></a>
+								{% endif %}
+								{% if company.twitter %}
+									<a class="btn btn-sm btn-social-icon btn-twitter" href="{{ company.twitter }}" target="_blank"><i class="fa fa-twitter"></i></a>
+								{% endif %}
+								{% if company.linkedin %}
+									<a class="btn btn-sm btn-social-icon btn-linkedin" href="{{ company.linkedin }}" target="_blank"><i class="fa fa-linkedin"></i></a>
+								{% endif %}
+								{% if company.googleplus %}
+									<a class="btn btn-sm btn-social-icon btn-google" href="{{ company.googleplus }}" target="_blank"><i class="fa fa-google-plus"></i></a>
+								{% endif %}
+							</dd>
+						{% endif %}
+
+					</dl>
+				</div>
+				<!-- /.box-body -->
+			</div>
+			<!-- /.box -->
+		</div>
+		<!-- ./col -->
+	</div>
+	{% if company.info %}
+		<div class="row">
+			<div class="col-md-12">
+				<!-- Custom Tabs -->
+				<div class="nav-tabs-custom">
+					<ul class="nav nav-tabs">
+						{% if company.about %}
+						<li class="active"><a href="#about" data-toggle="tab">Sobre a empresa</a></li>
+						{% endif %}
+						{% if company.products %}
+						<li><a href="#products" data-toggle="tab">Produtos e Serviços</a></li>
+						{% endif %}
+						{% if company.brands %}
+						<li><a href="#brands" data-toggle="tab">Marcas</a></li>
+						{% endif %}
+						{% if company.tags %}
+						<li><a href="#tags" data-toggle="tab">Tags</a></li>
+						{% endif %}
+					</ul>
+					<div class="tab-content">
+						{% if company.about %}
+							<div class="tab-pane fade active in" id="about">
+								{{ company.about }}
+							</div>
+						{% endif %}
+						{% if company.products %}
+							<div class="tab-pane fade" id="products">
+								{{ company.about }}
+							</div>
+						{% endif %}
+						{% if company.brands %}
+							<div class="tab-pane fade" id="brands">
+								{{ company.brands }}
+							</div>
+						{% endif %}
+						{% if company.tags %}
+							<div class="tab-pane fade" id="tags">
+								{{ company.tags }}
+							</div>
+						{% endif %}
+					</div>
+					<!-- /.tab-content -->
+				</div>
+				<!-- nav-tabs-custom -->
+			</div>
+			<!-- /.col -->
+		</div>
+	{% endif %}
+	<h2 class="page-header companies-h2">Empresas Com O Mesmo CAE</h2>
+	<div class="row">
+		{% for comp in random_companies %}
+		<div class="col-md-3 col-sm-6 col-xs-12">
+			<a href="/{{ comp.identifier }}/" class="related-company-link">
+				<div class="info-box related-company-color">
+					<div class="related-compamy">
+						<span class="info-box-text">{{ comp.name }}</span>
+						<span class="info-box-number">{{ comp.state }}</span>
+						<hr class="company-divider">
+						<span class="progress-description">
+						Início de Actividade: {{ comp.started_at|default:"Desconhecido" }}
+						</span>
+					</div>
+				</div>
+			</a>
+		</div>
+		{% endfor %}
+	</div>
+	<br>
+</section>
+{% endblock%}

@@ -1,0 +1,42 @@
+{% extends "layout.html" %}
+{% block content %}
+<section class="content">
+	<br>
+	<div class="index-title">
+	    <h1>GetCompany Info</h1>
+	    <p>Mais de 500 000 empresas num unico sitio, e o melhor de tudo com uma API avançada que inclui Webhooks</p>
+              <div class="input-group center-search">
+                <input type="text" class="form-control" placeholder="Pesquise empresas por Nome ou Nif" autocomplete="off" id="search-index">
+                    <span class="input-group-btn">
+                      <button type="button" class="btn btn-warning btn-flat" id="search-index-button"><i class="fa fa-search"></i></button>
+                    </span>
+              </div>
+	</div>
+
+	<br>
+
+	<hr class="companies-hr">
+
+	<br>
+
+	<h2 class="page-header companies-h2">Veja Também As Seguintes Empresas</h2>
+	<div class="row">
+		{% for campany in random_companies %}
+		<div class="col-md-3 col-sm-6 col-xs-12">
+			<a href="/{{ campany.identifier }}/" class="related-company-link">
+				<div class="info-box related-company-color">
+					<div class="related-compamy">
+						<span class="info-box-text">{{ campany.name }}</span>
+						<span class="info-box-number">{{ campany.state }}</span>
+						<hr class="company-divider">
+						<span class="progress-description">
+						Início de Actividade: {{ campany.started_at|default:"Desconhecido" }}
+						</span>
+					</div>
+				</div>
+			</a>
+		</div>
+		{% endfor %}
+	</div>
+</section>
+{% endblock%}

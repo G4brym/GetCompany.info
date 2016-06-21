@@ -1,0 +1,5 @@
+django==1.9.5
+pytz==2016.4
+psycopg2==2.6.1
+beautifulsoup4==4.4.1
+django-debug-toolbar==1.4
