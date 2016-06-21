@@ -1,8 +1,10 @@
 # GetCompany Info
 This is a company repository, it was online at https://www.getcompany.info/ but because it didn much trafict i shut it down.
 
-### Run
+### Company Informations
+This project doen't have any company informations out of the box, you have to get it however you want and add it to the database by yourself
 
+### Run
 To run this Django project you have to setup some enviremont vars:
 Remember that this project requires a Postgresql database, or you can change the settings file for another database.
 
@@ -13,7 +15,7 @@ Remember that this project requires a Postgresql database, or you can change the
 5. export DB_PASS="Postgresql db Password"
 
 ### Elastic beanstalk
-This project is ready to use in the amazon elastic beanstalk, just run eb init and eb deloy <name> and you are ready to go
+This project is ready to use in the amazon elastic beanstalk, just run "eb init" and "eb deloy name" and you are ready to go
 
 ### Preview
 Index Page
