@@ -12,9 +12,12 @@ Remember that this project requires a Postgresql database, or you can change the
 4. export DB_USER="Postgresql db Username"
 5. export DB_PASS="Postgresql db Password"
 
+### Elastic beanstalk
+This project is ready to use in the amazon elastic beanstalk, just run eb init and eb deloy <name> and you are ready to go
+
 ### Preview
 Index Page
-![preview](https://raw.githubusercontent.com/G4brym/GetCompany.info/master/img1.png)
+![index page](https://raw.githubusercontent.com/G4brym/GetCompany.info/master/img1.png)
 
 Company Page
-![preview](https://raw.githubusercontent.com/G4brym/GetCompany.info/master/img2.png)
+![company page](https://raw.githubusercontent.com/G4brym/GetCompany.info/master/img2.png)
