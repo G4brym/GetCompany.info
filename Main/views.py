@@ -227,7 +227,7 @@ def about(request):
         current_sitemap_text += '\
               <url>\
                 <loc>https://www.getcompany.info/' + company.identifier + '/</loc>\
-                <lastmod>' + str(company.updated_at)[:10] + '</lastmod>\
+                <lastmod>2016-06-27</lastmod>\
                 <changefreq>weekly</changefreq>\
                 <priority>0.8</priority>\
               </url>'
@@ -259,7 +259,7 @@ def about(request):
             result += '\
               <url>\
                 <loc>https://www.getcompany.info/' + company.identifier + '/</loc>\
-                <lastmod>' + str(company.updated_at)[:10] + '</lastmod>\
+                <lastmod>2016-06-27</lastmod>\
                 <changefreq>weekly</changefreq>\
                 <priority>0.8</priority>\
               </url>'
@@ -270,7 +270,7 @@ def about(request):
         with open("/root/workspace/Old/11/sitemap" + str(i) + ".xml", "w") as myfile:
             myfile.write(result)
 
-        del result'''
+        del result '''
 
     return render(request, 'about.html', {})
 
