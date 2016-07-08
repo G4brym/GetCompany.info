@@ -24,8 +24,9 @@ handler404 = 'Main.views.error404'
 handler500 = 'Main.views.error500'
 
 urlpatterns = [
-    url(r'^$', index),
-    url(r'^(?P<nif>[0-9]+)/$', company),
+    url(r'^$', index, name="index"),
+    url(r'^(?P<nif>[0-9]+)/$', redirect, name="redirect"),
+    url(r'^c/(?P<nif>[0-9]+)/$', company, name="company"),
     url(r'^about/$', about, name="about"),
     url(r'^terms/$', terms, name="terms"),
 

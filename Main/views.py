@@ -196,6 +196,9 @@ def company(request, nif):
 
     return render(request, 'company.html', {"company": company, "random_companies": random_companies, "token": current_hash, "title": str(company.name + " " + company.identifier + " - GetCompany.info")})
 
+def redirect(request, nif):
+    return HttpResponseRedirect("/c/" + str(nif) + "/")
+
 def docs(request):
     random = randint(1, MAX_COMPANIES)
     random_companies = Companies.objects.filter(id__gt=random, active=True).exclude(state="")[:8]
@@ -203,7 +206,7 @@ def docs(request):
     return render(request, 'documentation.html', {"random_companies": random_companies})
 
 def about(request):
-    a = ''' start = '<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'
+    a = '''start = '<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'
     final = '</urlset>'
 
 
@@ -226,17 +229,16 @@ def about(request):
 
         current_sitemap_text += '\
               <url>\
-                <loc>https://www.getcompany.info/' + company.identifier + '/</loc>\
-                <lastmod>2016-06-27</lastmod>\
-                <changefreq>weekly</changefreq>\
-                <priority>0.8</priority>\
+                <loc>https://www.getcompany.info/c/' + company.identifier + '/</loc>\
+                <changefreq>monthly</changefreq>\
+                <priority>1</priority>\
               </url>'
 
         if count > 50000:
 
             current_sitemap_text += final
 
-            with open(os.path.join(settings.BASE_DIR, "/static/sitemap" + str(current_sitemap_count) + ".xml")) as myfile:
+            with open(os.path.join(settings.BASE_DIR, "/static/sitemaps/companies-" + str(current_sitemap_count) + ".xml")) as myfile:
                 myfile.write(current_sitemap_text)
 
             count = 0
@@ -244,6 +246,7 @@ def about(request):
             current_sitemap_count = 0'''
 
     b = '''
+
     for i in range(0,20):
 
         result = '<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'
@@ -258,16 +261,15 @@ def about(request):
         for company in companies:
             result += '\
               <url>\
-                <loc>https://www.getcompany.info/' + company.identifier + '/</loc>\
-                <lastmod>2016-06-27</lastmod>\
-                <changefreq>weekly</changefreq>\
-                <priority>0.8</priority>\
+                <loc>https://www.getcompany.info/c/' + company.identifier + '/</loc>\
+                <changefreq>montly</changefreq>\
+                <priority>1</priority>\
               </url>'
 
 
         result += '</urlset>'
 
-        with open("/root/workspace/Old/11/sitemap" + str(i) + ".xml", "w") as myfile:
+        with open("/root/workspace/Old/11/companies-" + str(i) + ".xml", "w") as myfile:
             myfile.write(result)
 
         del result '''
