@@ -8,7 +8,7 @@
         {% if title %}
             <title>{{ title }}</title>
         {% else %}
-            <title>Empresas por actividade - GetCompany.Info</title>
+            <title>Empresas por actividade - CheckCompany Review</title>
         {% endif %}
         <!-- Tell the browser to be responsive to screen width -->
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
@@ -39,46 +39,45 @@
                 <meta name="description" content="{{ company.identifier }} {{ company.about }}">
 
             {% else %}
-                <meta property="og:description" content="{{ company.identifier }} {{ company.name }} GetCompany Info é um portal com informações de milhares de empresas, incluindo as suas actividades" />
-                <meta name="description" content="{{ company.identifier }} {{ company.name }} GetCompany Info é um portal com informações de milhares de empresas, incluindo as suas actividades">
+                <meta property="og:description" content="{{ company.identifier }} {{ company.name }} CheckCompany Review é um portal com informações de milhares de empresas, incluindo as suas actividades" />
+                <meta name="description" content="{{ company.identifier }} {{ company.name }} CheckCompany Review é um portal com informações de milhares de empresas, incluindo as suas actividades">
             {% endif %}
 
             {% if company.tags %}
                 <meta content="{{ company.tags }}" name="keywords">
                 <meta content="{{ company.tags }}" name="classification">
             {% else %}
-                <meta content="companies, empresas, companyinfo, getcompany, getcompanyinfo, infos, cae, nif" name="keywords">
-                <meta content="companies, empresas, companyinfo, getcompany, getcompanyinfo, infos, cae, nif" name="classification">            {% endif %}
+                <meta content="companies, empresas, companyinfo, checkcompany.review, checkcompanyreview, infos, cae, nif" name="keywords">
+                <meta content="companies, empresas, companyinfo, checkcompany.review, checkcompanyreview, infos, cae, nif" name="classification">           {% endif %}
 
             {% for comp in random_companies %}
-                <meta property="og:see_also" content="https://www.getcompany.info/{{ comp.id }}/" />
+                <meta property="og:see_also" content="https://www.checkcompany.review/c/{{ comp.id }}/" />
         	{% endfor %}
 
         {% else %}
-            <meta property="title" content="Empresas por actividade - GetCompany.Info" />
-            <meta property="og:title" content="Empresas por actividade - GetCompany.Info" />
+            <meta property="title" content="Empresas por actividade - checkcompany.review" />
+            <meta property="og:title" content="Empresas por actividade - checkcompany.review" />
             <meta property="og:type" content="website" />
 
-            <meta property="og:description" content="GetCompany Info é um portal com informações de milhares de empresas, incluindo as suas actividades" />
-            <meta name="description" content="GetCompany Info é um portal com informações de milhares de empresas, incluindo as suas actividades">
+            <meta property="og:description" content="CheckCompany Review Reviewo é um portal com informações de milhares de empresas, incluindo as suas actividades" />
+            <meta name="description" content="CheckCompany Review é um portal com informações de milhares de empresas, incluindo as suas actividades">
 
-            <meta content="companies, empresas, companyinfo, getcompany, getcompanyinfo, infos, cae, nif" name="keywords">
-            <meta content="companies, empresas, companyinfo, getcompany, getcompanyinfo, infos, cae, nif" name="classification">
+            <meta content="companies, empresas, companyinfo, checkcompany.review, checkcompanyreview, infos, cae, nif" name="keywords">
+            <meta content="companies, empresas, companyinfo, checkcompany.review, checkcompanyreview, infos, cae, nif" name="classification">
         {% endif %}
 
 
-        <meta property="og:image" content="https://www.getcompany.info/static/img/logo.jpg" />
+        <meta property="og:image" content="https://www.checkcompany.review/static/img/logo.jpg" />
         <meta property="og:locale" content="pt-PT" />
-
-        <meta content="991002034340346" property="fb:app_id">
-        <meta content="GetCompanyInfo" property="og:site_name">
-        <meta content="GetCompanyInfo" property="twitter:site">
+        
+        <meta content="checkcompanyreview" property="og:site_name">
+        <meta content="checkcompanyreview" property="twitter:site">
 
         <meta name="application-name" content="GetCompanyInfo">
-        <meta name="msapplication-tooltip" content="Launch GetCompanyInfo">
-        <meta name="msapplication-TileImage" content="https://www.getcompany.info/static/img/logo.jpg">
+        <meta name="msapplication-tooltip" content="Launch CheckCompany Review">
+        <meta name="msapplication-TileImage" content="https://www.checkcompany.review/static/img/logo.jpg">
         <meta name="msapplication-TileColor" content="#F39C12">
-        <meta name="msapplication-starturl" content="https://www.getcompany.info">
+        <meta name="msapplication-starturl" content="https://www.checkcompany.review">
     </head>
     <body class="hold-transition skin sidebar-mini layout-boxed">
         <div class="wrapper">
@@ -155,7 +154,7 @@
                     </small>
                 </div>
                 <!-- Default to the left -->
-                <strong>Copyright &copy; 2016 <a href="https://www.getcompany.info/">GetCompany info</a>.</strong> All rights reserved.
+                <strong>Copyright &copy; 2016 <a href="https://www.checkcompany.review/">GetCompany info</a>.</strong> All rights reserved.
             </footer>
         </div>
         <!-- ./wrapper -->

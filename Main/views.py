@@ -245,8 +245,8 @@ def about(request):
             current_sitemap_text = start
             current_sitemap_count = 0'''
 
-
     b = '''
+
     for i in range(0,20):
 
         result = '<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'
@@ -259,7 +259,7 @@ def about(request):
         companies = Companies.objects.all()[skip:get]
 
         for company in companies:
-            result += '<url><loc>https://www.getcompany.info/c/' + company.identifier + '/</loc><changefreq>monthly</changefreq><priority>1</priority></url>'
+            result += '<url><loc>https://www.checkcompany.review/c/' + company.identifier + '/</loc><changefreq>monthly</changefreq><priority>1</priority></url>'
 
 
         result += '</urlset>'
