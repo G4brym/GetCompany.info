@@ -155,7 +155,7 @@ def company(request, nif):
         company.save()
 
         random = randint(1, MAX_COMPANIES)
-        random_companies = Companies.objects.filter(id__gt=random, active=True, cae_id=company.cae_id).exclude(state="")[:8]
+        random_companies = Companies.objects.filter(id__gt=random, active=True, cae=company.cae).exclude(state="")[:8]
 
         return render(request, 'company-bots.html', {"company": company, "random_companies": random_companies, "title": str(company.name + " " + company.identifier + " - GetCompany.info")})
 
