@@ -10,7 +10,7 @@ from django.http import JsonResponse, HttpResponseRedirect
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import render
 from django.contrib.auth import authenticate, logout, login
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect, render, HttpResponse
 from django.contrib.auth.models import User
 from django.db import IntegrityError
 from django.conf import settings
@@ -26,6 +26,7 @@ import uuid
 import time
 from random import shuffle, randint
 import sys
+import math
 
 from bs4 import BeautifulSoup
 
@@ -246,7 +247,6 @@ def about(request):
             current_sitemap_count = 0'''
 
     b = '''
-
     for i in range(0,20):
 
         result = '<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'
@@ -259,7 +259,7 @@ def about(request):
         companies = Companies.objects.all()[skip:get]
 
         for company in companies:
-            result += '<url><loc>https://www.checkcompany.review/c/' + company.identifier + '/</loc><changefreq>monthly</changefreq><priority>1</priority></url>'
+            result += '<url><loc>https://www.getcompany.info/c/' + company.identifier + '/</loc><changefreq>monthly</changefreq><priority>1</priority></url>'
 
 
         result += '</urlset>'
@@ -274,6 +274,39 @@ def about(request):
 def terms(request):
 
     return render(request, 'terms.html', {})
+
+def sitemapmain(request):
+
+    companies_per_sitemap = 30000
+
+    total_companies = Companies.objects.all().count()
+
+    sitemaps = math.ceil(total_companies/companies_per_sitemap)
+
+    result = '<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'
+    for i in range(0, sitemaps):
+        result += '<sitemap><loc>https://www.getcompany.info/companies-' + str(i) + '.xml</loc></sitemap>'
+
+    result += '</sitemapindex>'
+
+    return HttpResponse(result, content_type='text/xml')
+
+def sitemap_companies(request, id):
+
+    companies_per_sitemap = 30000
+
+    skip = int(id) * companies_per_sitemap
+    get = skip + companies_per_sitemap
+
+    total_companies = Companies.objects.all()[skip:get]
+
+    result = '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'
+    for company in total_companies:
+        result += '<url><loc>https://www.getcompany.info/' + company.identifier + '/</loc><lastmod>' + str(company.updated_at)[:10] + '</lastmod></url>'
+
+    result += '</urlset>'
+
+    return HttpResponse(result, content_type='text/xml')
 
 def Crawl_Company(nif):
     try:

@@ -25,8 +25,7 @@ handler500 = 'Main.views.error500'
 
 urlpatterns = [
     url(r'^$', index, name="index"),
-    url(r'^(?P<nif>[0-9]+)/$', redirect, name="redirect"),
-    url(r'^c/(?P<nif>[0-9]+)/$', company, name="company"),
+    url(r'^(?P<nif>[0-9]+)/$', company, name="company"),
     url(r'^about/$', about, name="about"),
     url(r'^terms/$', terms, name="terms"),
 
@@ -37,7 +36,8 @@ urlpatterns = [
 
     url(r'^not-found/$', error404, name="404"),
 
-    url(r'^sitemap.xml$', TemplateView.as_view(template_name='sitemap.xml', content_type='text/xml')),
+    url(r'^sitemap.xml$', sitemapmain, name="sitemapmain"),
+    url(r'^companies-(?P<id>[1-9]+).xml$', sitemap_companies, name="sitemap_companies"),
     url(r'^robots.txt$', TemplateView.as_view(template_name='robots.txt', content_type='text')),
 ]
 

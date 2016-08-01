@@ -3,7 +3,7 @@
 <section class="content">
 	<br>
 	<div class="index-title">
-	    <h1>CheckCompany Review</h1>
+	    <h1>GetCompany Info</h1>
 	    <p>Mais de 700 000 empresas num unico sitio, e o melhor de tudo com uma API avançada que inclui Webhooks</p>
               <div class="input-group center-search">
                 <input type="text" class="form-control" placeholder="Pesquise empresas por Nome ou Nif" autocomplete="off" id="search-index">
@@ -23,7 +23,7 @@
 	<div class="row">
 		{% for campany in random_companies %}
 		<div class="col-md-3 col-sm-6 col-xs-12">
-			<a href="/c/{{ campany.identifier }}/" class="related-company-link">
+			<a href="/{{ campany.identifier }}/" class="related-company-link">
 				<div class="info-box related-company-color">
 					<div class="related-compamy">
 						<span class="info-box-text">{{ campany.name }}</span>

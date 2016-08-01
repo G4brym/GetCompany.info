@@ -13,7 +13,7 @@
 	<div class="row">
 		{% for campany in random_companies %}
 		<div class="col-md-3 col-sm-6 col-xs-12">
-			<a href="/c/{{ campany.identifier }}/" class="related-company-link">
+			<a href="/{{ campany.identifier }}/" class="related-company-link">
 				<div class="info-box related-company-color">
 					<div class="related-compamy">
 						<span class="info-box-text">{{ campany.name }}</span>

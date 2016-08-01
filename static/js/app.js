@@ -390,7 +390,7 @@ $(document).ready(function() {
                         for (i = 0; i < xhr.data.length; i++) {
 
                             tmp += '  <li>\
-                                  <a href="/c/' + xhr.data[i].identifier + '/" style="width: 230px; padding-top: 5px; padding-bottom: 2px;">\
+                                  <a href="/' + xhr.data[i].identifier + '/" style="width: 230px; padding-top: 5px; padding-bottom: 2px;">\
                                       <div class="row">\
                                           <div class="col-md-12">\
                                               <i class="fa fa-chevron-right" style="width: 20px;"></i>\
@@ -471,7 +471,7 @@ $(document).ready(function() {
                         for (i = 0; i < xhr.data.length; i++) {
 
                             tmp += '  <li>\
-                                  <a href="/c/' + xhr.data[i].identifier + '/" style="width: 230px; padding-top: 5px; padding-bottom: 2px;">\
+                                  <a href="/' + xhr.data[i].identifier + '/" style="width: 230px; padding-top: 5px; padding-bottom: 2px;">\
                                       <div class="row">\
                                           <div class="col-md-12">\
                                               <i class="fa fa-chevron-right" style="width: 20px;"></i>\
