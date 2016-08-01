@@ -40,7 +40,7 @@ def error404(request):
     random = randint(1, MAX_COMPANIES)
     random_companies = Companies.objects.filter(id__gt=random, active=True).exclude(state="")[:8]
 
-    return render(request, 'error404.html', {"random_companies": random_companies}, status="404"
+    return render(request, 'error404.html', {"random_companies": random_companies}, status="404")
 
 def error500(request):
     random = randint(1, MAX_COMPANIES)
