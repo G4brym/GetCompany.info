@@ -289,7 +289,7 @@ def sitemapmain(request):
 
     result += '</sitemapindex>'
 
-    return HttpResponse(result, content_type='application/xhtml+xml')
+    return HttpResponse(result, content_type='text/xml; charset=UTF-8')
 
 def sitemap_companies(request, id):
 
@@ -306,7 +306,7 @@ def sitemap_companies(request, id):
 
     result += '</urlset>'
 
-    return HttpResponse(result, content_type='application/xhtml+xml')
+    return HttpResponse(result, content_type='text/xml; charset=UTF-8')
 
 def Crawl_Company(nif):
     try:

@@ -37,7 +37,7 @@ urlpatterns = [
     url(r'^not-found/$', error404, name="404"),
 
     url(r'^sitemap.xml$', sitemapmain, name="sitemapmain"),
-    url(r'^companies-(?P<id>[1-9]+).xml$', sitemap_companies, name="sitemap_companies"),
+    url(r'^companies-(?P<id>[0-9]+).xml$', sitemap_companies, name="sitemap_companies"),
     url(r'^robots.txt$', TemplateView.as_view(template_name='robots.txt', content_type='text')),
 ]
 
