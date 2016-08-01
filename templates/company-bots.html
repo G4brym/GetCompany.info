@@ -12,7 +12,7 @@
 <section class="content">
 	<!-- ./col -->
 	<div class="row">
-		<div class="col-md-8">
+		<div class="col-md-12">
 			<div class="box box-solid" style="height: 280px; overflow-y: auto;">
 				<!-- /.box-header -->
 				<div class="box-body">
@@ -22,6 +22,11 @@
 						{% if company.address %}
 							<dt>Morada</dt>
 							<dd>{{ company.address }}</dd>
+						{% endif %}
+
+						{% if company.address_l2 %}
+							<dt></dt>
+							<dd>{{ company.address_l2 }}</dd>
 						{% endif %}
 
 						{% if company.phone %}
@@ -96,38 +101,78 @@
 				<div class="nav-tabs-custom">
 					<ul class="nav nav-tabs">
 						{% if company.about %}
-						<li class="active"><a href="#about" data-toggle="tab">Sobre a empresa</a></li>
+							{% if company.active_tab == 1 %}
+								<li class="active"><a href="#about" data-toggle="tab">Sobre a empresa</a></li>
+							{%  else %}
+								<li><a href="#about" data-toggle="tab">Sobre a empresa</a></li>
+							{% endif %}
 						{% endif %}
 						{% if company.products %}
-						<li><a href="#products" data-toggle="tab">Produtos e Serviços</a></li>
+							{% if company.active_tab == 2 %}
+								<li class="active"><a href="#products" data-toggle="tab">Produtos e Serviços</a></li>
+							{%  else %}
+								<li><a href="#products" data-toggle="tab">Produtos e Serviços</a></li>
+							{% endif %}
 						{% endif %}
 						{% if company.brands %}
-						<li><a href="#brands" data-toggle="tab">Marcas</a></li>
+							{% if company.active_tab == 3 %}
+								<li class="active"><a href="#brands" data-toggle="tab">Marcas</a></li>
+							{%  else %}
+								<li><a href="#brands" data-toggle="tab">Marcas</a></li>
+							{% endif %}
 						{% endif %}
 						{% if company.tags %}
-						<li><a href="#tags" data-toggle="tab">Tags</a></li>
+							{% if company.active_tab == 4 %}
+								<li class="active"><a href="#tags" data-toggle="tab">Tags</a></li>
+							{%  else %}
+								<li><a href="#tags" data-toggle="tab">Tags</a></li>
+							{% endif %}
 						{% endif %}
 					</ul>
 					<div class="tab-content">
 						{% if company.about %}
-							<div class="tab-pane fade active in" id="about">
-								{{ company.about }}
-							</div>
+							{% if company.active_tab == 1 %}
+								<div class="tab-pane fade active in" id="about">
+									{{ company.about }}
+								</div>
+							{% else %}
+								<div class="tab-pane fade" id="about">
+									{{ company.about }}
+								</div>
+							{% endif %}
 						{% endif %}
 						{% if company.products %}
-							<div class="tab-pane fade" id="products">
-								{{ company.about }}
-							</div>
+							{% if company.active_tab == 2 %}
+								<div class="tab-pane fade active in" id="products">
+									{{ company.products }}
+								</div>
+							{% else %}
+								<div class="tab-pane fade" id="products">
+									{{ company.products }}
+								</div>
+							{% endif %}
 						{% endif %}
 						{% if company.brands %}
-							<div class="tab-pane fade" id="brands">
-								{{ company.brands }}
-							</div>
+							{% if company.active_tab == 3 %}
+								<div class="tab-pane fade active in" id="brands">
+									{{ company.brands }}
+								</div>
+							{% else %}
+								<div class="tab-pane fade" id="brands">
+									{{ company.brands }}
+								</div>
+							{% endif %}
 						{% endif %}
 						{% if company.tags %}
-							<div class="tab-pane fade" id="tags">
-								{{ company.tags }}
-							</div>
+							{% if company.active_tab == 4 %}
+								<div class="tab-pane fade active in" id="tags">
+									{{ company.tags }}
+								</div>
+							{% else %}
+								<div class="tab-pane fade" id="tags">
+									{{ company.tags }}
+								</div>
+							{% endif %}
 						{% endif %}
 					</div>
 					<!-- /.tab-content -->
