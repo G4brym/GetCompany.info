@@ -14,6 +14,7 @@ from django.shortcuts import redirect, render, HttpResponse
 from django.contrib.auth.models import User
 from django.db import IntegrityError
 from django.conf import settings
+from django.utils import timezone
 
 import datetime as dt
 import json
@@ -461,6 +462,8 @@ def Crawl_Company(nif):
         company.linkedin = linkedin
         company.googleplus = googleplus
         company.active_tab = active_tab
+        
+        company.updated_at = timezone.now
 
         company.already_crawled = True
 

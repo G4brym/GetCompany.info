@@ -39,12 +39,12 @@ class Companies(models.Model):
     active_tab = models.IntegerField(default=1)
     already_crawled = models.BooleanField(default=False)
     error_crawling = models.BooleanField(default=False)
-    
+
     visits_users = models.IntegerField(default=0)
     visits_bots = models.IntegerField(default=0)
 
     created_at = models.DateTimeField(auto_now_add=True, auto_now=False)
-    updated_at = models.DateTimeField(auto_now_add=False, auto_now=True)
+    updated_at = models.DateTimeField(auto_now_add=True, auto_now=False)
 
     class Meta:
         app_label = 'Main'
