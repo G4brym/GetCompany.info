@@ -156,10 +156,11 @@ def company(request, nif):
 
         return render(request, 'company-bots.html', {"company": company, "random_companies": random_companies, "title": str(company.name + " " + company.identifier + " - GetCompany.info")})
 
-    t = threading.Thread(target=Crawl_Company,
-                                args=[nif])
-    t.setDaemon(True)
-    t.start()
+    if company.error_crawling == True or company.already_crawled == False:
+        t = threading.Thread(target=Crawl_Company,
+                                    args=[nif])
+        t.setDaemon(True)
+        t.start()
 
     company.visits_users += 1
     company.save()
@@ -203,67 +204,6 @@ def docs(request):
     return render(request, 'documentation.html', {"random_companies": random_companies})
 
 def about(request):
-    a = '''start = '<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'
-    final = '</urlset>'
-
-
-    total = Companies.objects.count()
-
-    companies = Companies.objects.all()
-
-    count = 0
-    total_count = 0
-
-    current_sitemap_text = start
-    current_sitemap_count = 0
-
-    for company in companies:
-        sys.stdout.write("\r" + str(total_count))
-        sys.stdout.flush()
-
-        count += 1
-        total_count += 1
-
-        current_sitemap_text += '\
-              <url>\
-                <loc>https://www.getcompany.info/c/' + company.identifier + '/</loc>\
-                <changefreq>monthly</changefreq>\
-                <priority>1</priority>\
-              </url>'
-
-        if count > 50000:
-
-            current_sitemap_text += final
-
-            with open(os.path.join(settings.BASE_DIR, "/static/sitemaps/companies-" + str(current_sitemap_count) + ".xml")) as myfile:
-                myfile.write(current_sitemap_text)
-
-            count = 0
-            current_sitemap_text = start
-            current_sitemap_count = 0'''
-
-    b = '''
-    for i in range(0,20):
-
-        result = '<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'
-
-        skip = i * 45000
-        get = skip + 45000
-        print("skip " + str(skip))
-        print("get " + str(get))
-
-        companies = Companies.objects.all()[skip:get]
-
-        for company in companies:
-            result += '<url><loc>https://www.getcompany.info/c/' + company.identifier + '/</loc><changefreq>monthly</changefreq><priority>1</priority></url>'
-
-
-        result += '</urlset>'
-
-        with open("/root/workspace/Old/11/companies-" + str(i) + ".xml", "w") as myfile:
-            myfile.write(result)
-
-        del result'''
 
     return render(request, 'about.html', {})
 
@@ -462,9 +402,10 @@ def Crawl_Company(nif):
         company.linkedin = linkedin
         company.googleplus = googleplus
         company.active_tab = active_tab
-        
-        company.updated_at = timezone.now
+
+        company.updated_at = timezone.now()
 
         company.already_crawled = True
+        company.error_crawling = False
 
         company.save()
