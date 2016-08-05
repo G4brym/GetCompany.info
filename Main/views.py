@@ -6,7 +6,7 @@ from django.db.models import Q
 from django.core import serializers
 from django.shortcuts import render_to_response
 from django.template import RequestContext, Context, Template, loader
-from django.http import JsonResponse, HttpResponseRedirect
+from django.http import JsonResponse, HttpResponseRedirect, HttpResponseNotFound
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import render
 from django.contrib.auth import authenticate, logout, login
@@ -36,11 +36,6 @@ from Main.API.manager import api
 from Main.handlers.view import view_handler, add_error, add_success
 from Main.models import Companies, Tokens, CAE
 
-def error404(request):
-    random = randint(1, MAX_COMPANIES)
-    random_companies = Companies.objects.filter(id__gt=random, active=True).exclude(state="")[:8]
-
-    return render(request, 'error404.html', {"random_companies": random_companies}, status="404")
 
 def error500(request):
     random = randint(1, MAX_COMPANIES)
@@ -198,7 +193,7 @@ def company(request, nif):
     return render(request, 'company.html', {"company": company, "random_companies": random_companies, "token": current_hash, "title": str(company.name + " " + company.identifier + " - GetCompany.info")})
 
 def redirect(request, nif):
-    return HttpResponseRedirect("/c/" + str(nif) + "/")
+    return HttpResponseRedirect("/" + str(nif) + "/")
 
 def docs(request):
     random = randint(1, MAX_COMPANIES)

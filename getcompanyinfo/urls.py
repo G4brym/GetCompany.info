@@ -18,14 +18,14 @@ from django.contrib import admin
 from Main.views import *
 from django.views.generic import TemplateView
 from Main.handlers.settings import get_DEBUG
-from django.conf.urls import include, patterns, url
+from django.conf.urls import include, url
 
-handler404 = 'Main.views.error404'
 handler500 = 'Main.views.error500'
 
 urlpatterns = [
     url(r'^$', index, name="index"),
     url(r'^(?P<nif>[0-9]+)/$', company, name="company"),
+    url(r'^c/(?P<nif>[0-9]+)/$', redirect, name="redirect"),
     url(r'^about/$', about, name="about"),
     url(r'^terms/$', terms, name="terms"),
 
@@ -33,8 +33,6 @@ urlpatterns = [
     url(r'^v1/docs/$', docs, name="docs"),
     url(r'^v1/(?P<endpoint>[a-z]+)/$', api_req, name="api"),
     url(r'^v1/(?P<endpoint>[a-z]+)/(?P<action>[a-z0-9]+)/$', api_req, name="api"),
-
-    url(r'^not-found/$', error404, name="404"),
 
     url(r'^sitemap.xml$', sitemapmain, name="sitemapmain"),
     url(r'^companies-(?P<id>[0-9]+).xml$', sitemap_companies, name="sitemap_companies"),
