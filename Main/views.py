@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from django.shortcuts import redirect, HttpResponseRedirect
 from django.db.models import Q
 from django.core import serializers
-from django.shortcuts import render_to_response
+from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext, Context, Template, loader
 from django.http import JsonResponse, HttpResponseRedirect, HttpResponseNotFound
 from django.views.decorators.csrf import csrf_exempt
@@ -43,6 +43,12 @@ def error500(request):
     random_companies = Companies.objects.filter(id__gt=random, active=True).exclude(state="")[:8]
 
     return render(request, 'error500.html', {"random_companies": random_companies}, status="500")
+
+#def error404(request):
+#    random = randint(1, MAX_COMPANIES)
+#    random_companies = Companies.objects.filter(id__gt=random, active=True).exclude(state="")[:8]
+
+#    return render(request, '404.html', {"random_companies": random_companies}, status="404")
 
 # Create your views here.
 @csrf_exempt
@@ -141,10 +147,9 @@ def index(request):
 
 def company(request, nif):
 
-    try:
-        company = Companies.objects.get(identifier=nif)
-    except Companies.DoesNotExist:
-        return redirect('404')
+    
+
+    company = get_object_or_404(Companies, identifier=nif)
 
     if("bot" in str(request.META['HTTP_USER_AGENT']).lower()):
 
@@ -194,7 +199,7 @@ def company(request, nif):
 
     return render(request, 'company.html', {"company": company, "random_companies": random_companies, "token": current_hash, "title": str(company.name + " " + company.identifier + " - GetCompany.info")})
 
-def redirect(request, nif):
+def redirectCompany(request, nif):
     return HttpResponseRedirect("/" + str(nif) + "/")
 
 def docs(request):
