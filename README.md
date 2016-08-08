@@ -19,7 +19,7 @@ This project is ready to use in the amazon elastic beanstalk, just run "eb init"
 
 ### Preview
 Index Page
-![index page](https://raw.githubusercontent.com/G4brym/GetCompany.info/master/img1.png)
+![index page](https://github.com/G4brym/GetCompany.info/raw/master/img1.png)
 
 Company Page
-![company page](https://raw.githubusercontent.com/G4brym/GetCompany.info/master/img2.png)
+![company page](https://github.com/G4brym/GetCompany.info/raw/master/img1.png)
