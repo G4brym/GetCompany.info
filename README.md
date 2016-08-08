@@ -22,4 +22,4 @@ Index Page
 ![index page](https://github.com/G4brym/GetCompany.info/raw/master/img1.png)
 
 Company Page
-![company page](https://github.com/G4brym/GetCompany.info/raw/master/img1.png)
+![company page](https://github.com/G4brym/GetCompany.info/raw/master/img2.png)
