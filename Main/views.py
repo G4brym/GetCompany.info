@@ -15,6 +15,7 @@ from django.contrib.auth.models import User
 from django.db import IntegrityError
 from django.conf import settings
 from django.utils import timezone
+from django.db.models import F
 
 import datetime as dt
 import json
@@ -35,10 +36,20 @@ from Main.handlers.utilities import get_remote_IP, check_recaptcha
 from Main.handlers.settings import MAX_COMPANIES
 from Main.API.manager import api
 from Main.handlers.view import view_handler, add_error, add_success
-from Main.models import Companies, Tokens, CAE
+from Main.models import Companies, Tokens, CAE, Visits
 
 
 def error500(request):
+
+    if("bot" in str(request.META['HTTP_USER_AGENT']).lower()):
+        tmp_model = Visits.objects.get_or_create(date=str(dt.datetime.now())[:10])[0]
+        tmp_model.botsVisits=F('botsVisits')+1
+        tmp_model.save()
+    else:
+        tmp_model = Visits.objects.get_or_create(date=str(dt.datetime.now())[:10])[0]
+        tmp_model.usersVisits=F('usersVisits')+1
+        tmp_model.save()
+
     random = randint(1, MAX_COMPANIES)
     random_companies = Companies.objects.filter(id__gt=random, active=True).exclude(state="")[:8]
 
@@ -71,6 +82,15 @@ def api_req(request, endpoint, action=""):
         return render(request, 'api_callback.html', dict, status=result.getCode())
 
 def index(request):
+
+    if("bot" in str(request.META['HTTP_USER_AGENT']).lower()):
+        tmp_model = Visits.objects.get_or_create(date=str(dt.datetime.now())[:10])[0]
+        tmp_model.botsVisits=F('botsVisits')+1
+        tmp_model.save()
+    else:
+        tmp_model = Visits.objects.get_or_create(date=str(dt.datetime.now())[:10])[0]
+        tmp_model.usersVisits=F('usersVisits')+1
+        tmp_model.save()
     a = '''
     import xlrd
 
@@ -147,11 +167,15 @@ def index(request):
 
 def company(request, nif):
 
-    
+
 
     company = get_object_or_404(Companies, identifier=nif)
 
     if("bot" in str(request.META['HTTP_USER_AGENT']).lower()):
+
+        tmp_model = Visits.objects.get_or_create(date=str(dt.datetime.now())[:10])[0]
+        tmp_model.botsVisits=F('botsVisits')+1
+        tmp_model.save()
 
         company.visits_bots += 1
         company.save()
@@ -166,6 +190,10 @@ def company(request, nif):
                                     args=[nif])
         t.setDaemon(True)
         t.start()
+
+    tmp_model = Visits.objects.get_or_create(date=str(dt.datetime.now())[:10])[0]
+    tmp_model.usersVisits=F('usersVisits')+1
+    tmp_model.save()
 
     company.visits_users += 1
     company.save()
@@ -203,6 +231,16 @@ def redirectCompany(request, nif):
     return HttpResponseRedirect("/" + str(nif) + "/")
 
 def docs(request):
+
+    if("bot" in str(request.META['HTTP_USER_AGENT']).lower()):
+        tmp_model = Visits.objects.get_or_create(date=str(dt.datetime.now())[:10])[0]
+        tmp_model.botsVisits=F('botsVisits')+1
+        tmp_model.save()
+    else:
+        tmp_model = Visits.objects.get_or_create(date=str(dt.datetime.now())[:10])[0]
+        tmp_model.usersVisits=F('usersVisits')+1
+        tmp_model.save()
+
     random = randint(1, MAX_COMPANIES)
     random_companies = Companies.objects.filter(id__gt=random, active=True).exclude(state="")[:8]
 
@@ -210,13 +248,40 @@ def docs(request):
 
 def about(request):
 
+    if("bot" in str(request.META['HTTP_USER_AGENT']).lower()):
+        tmp_model = Visits.objects.get_or_create(date=str(dt.datetime.now())[:10])[0]
+        tmp_model.botsVisits=F('botsVisits')+1
+        tmp_model.save()
+    else:
+        tmp_model = Visits.objects.get_or_create(date=str(dt.datetime.now())[:10])[0]
+        tmp_model.usersVisits=F('usersVisits')+1
+        tmp_model.save()
+
     return render(request, 'about.html', {})
 
 def terms(request):
 
+    if("bot" in str(request.META['HTTP_USER_AGENT']).lower()):
+        tmp_model = Visits.objects.get_or_create(date=str(dt.datetime.now())[:10])[0]
+        tmp_model.botsVisits=F('botsVisits')+1
+        tmp_model.save()
+    else:
+        tmp_model = Visits.objects.get_or_create(date=str(dt.datetime.now())[:10])[0]
+        tmp_model.usersVisits=F('usersVisits')+1
+        tmp_model.save()
+
     return render(request, 'terms.html', {})
 
 def sitemapmain(request):
+
+    if("bot" in str(request.META['HTTP_USER_AGENT']).lower()):
+        tmp_model = Visits.objects.get_or_create(date=str(dt.datetime.now())[:10])[0]
+        tmp_model.botsVisits=F('botsVisits')+1
+        tmp_model.save()
+    else:
+        tmp_model = Visits.objects.get_or_create(date=str(dt.datetime.now())[:10])[0]
+        tmp_model.usersVisits=F('usersVisits')+1
+        tmp_model.save()
 
     companies_per_sitemap = 30000
 
@@ -233,6 +298,15 @@ def sitemapmain(request):
     return HttpResponse(result, content_type='text/xml; charset=UTF-8')
 
 def sitemap_companies(request, id):
+
+    if("bot" in str(request.META['HTTP_USER_AGENT']).lower()):
+        tmp_model = Visits.objects.get_or_create(date=str(dt.datetime.now())[:10])[0]
+        tmp_model.botsVisits=F('botsVisits')+1
+        tmp_model.save()
+    else:
+        tmp_model = Visits.objects.get_or_create(date=str(dt.datetime.now())[:10])[0]
+        tmp_model.usersVisits=F('usersVisits')+1
+        tmp_model.save()
 
     companies_per_sitemap = 30000
 

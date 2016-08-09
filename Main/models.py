@@ -1,6 +1,14 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+class Visits(models.Model):
+    usersVisits = models.IntegerField(default=0)
+    botsVisits = models.IntegerField(default=0)
+    date = models.TextField()
+
+    class Meta:
+        app_label = 'Main'
+
 class Companies(models.Model):
     identifier = models.TextField(max_length=100, unique=True)
     name = models.TextField(max_length=100)
