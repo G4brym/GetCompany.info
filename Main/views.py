@@ -488,3 +488,7 @@ def Crawl_Company(nif):
         company.error_crawling = False
 
         company.save()
+        
+        tmp_model = Visits.objects.get_or_create(date=str(dt.datetime.now())[:10])[0]
+        tmp_model.companiesCrawled=F('companiesCrawled')+1
+        tmp_model.save()
