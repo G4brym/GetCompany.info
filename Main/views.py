@@ -263,7 +263,7 @@ def status(request):
             "companiesCrawled": []
         }
 
-        visitas = Visits.objects.all()[:30]
+        visitas = Visits.objects.all().order_by('-id')[:30].reverse()
 
         for visit in visitas:
             dic["labels"].append(str(visit.date)[:10])
@@ -278,8 +278,6 @@ def status(request):
             "botvisits": json.dumps(dic["botvisits"]),
             "companiesCrawled": json.dumps(dic["companiesCrawled"])
         }
-
-        print(final_dict)
 
         return render(request, 'status.html', final_dict)
 
@@ -529,7 +527,7 @@ def Crawl_Company(nif):
         company.error_crawling = False
 
         company.save()
-        
+
         tmp_model = Visits.objects.get_or_create(date=str(dt.datetime.now())[:10])[0]
         tmp_model.companiesCrawled=F('companiesCrawled')+1
         tmp_model.save()
