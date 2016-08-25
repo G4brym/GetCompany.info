@@ -36,6 +36,7 @@ urlpatterns = [
 
     url(r'^sitemap.xml$', sitemapmain, name="sitemapmain"),
     url(r'^companies-(?P<id>[0-9]+).xml$', sitemap_companies, name="sitemap_companies"),
+    url(r'^status/$', status, name="status"),
     url(r'^robots.txt$', TemplateView.as_view(template_name='robots.txt', content_type='text')),
 ]
 

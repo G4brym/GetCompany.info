@@ -246,6 +246,47 @@ def docs(request):
 
     return render(request, 'documentation.html', {"random_companies": random_companies})
 
+def status(request):
+
+    try:
+        pw = request.GET["pw"]
+    except:
+        return render(request, '404.html')
+
+    if(pw == "justdoit"):
+
+        dic = {
+            "legend": '<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li><span style=\"background-color:<%=datasets[i].fillColor%>\"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>',
+            "labels": [],
+            "uservisits": [],
+            "botvisits": [],
+            "companiesCrawled": []
+        }
+
+        visitas = Visits.objects.all()[:30]
+
+        for visit in visitas:
+            dic["labels"].append(str(visit.date)[:10])
+            dic["uservisits"].append(visit.usersVisits)
+            dic["botvisits"].append(visit.botsVisits)
+            dic["companiesCrawled"].append(visit.companiesCrawled)
+
+        final_dict = {
+            "legend": dic["legend"],
+            "labels": json.dumps(dic["labels"]),
+            "uservisits": json.dumps(dic["uservisits"]),
+            "botvisits": json.dumps(dic["botvisits"]),
+            "companiesCrawled": json.dumps(dic["companiesCrawled"])
+        }
+
+        print(final_dict)
+
+        return render(request, 'status.html', final_dict)
+
+    else:
+        return render(request, '404.html')
+
+
 def about(request):
 
     if("bot" in str(request.META['HTTP_USER_AGENT']).lower()):
