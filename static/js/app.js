@@ -355,12 +355,26 @@ function newError(msg) {
     });
 }
 
+var sidebar_clicked_with_search = false;
+
+$("#toggle-sidebar").on( "click", function() {
+    if (sidebar_clicked_with_search) {
+        $('#helper-search').hide();
+    }
+});
+
 $(document).ready(function() {
     $("#search-index-button").click(function() {
         $("#search").val($("#search-index").val());
         if ($("#search").val().toString().trim().length < 3) {
             newError("Introduza No Minimo 3 Caracters");
         } else {
+
+            if (sidebar_clicked_with_search == false) {
+                $('#helper-search').slideDown("medium");
+                sidebar_clicked_with_search = true;
+            }
+
             $("#search-display").html('\
                         <li class="header search-result">Pesquisa</li>\
                         <center>\

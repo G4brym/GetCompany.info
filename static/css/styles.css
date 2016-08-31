@@ -5593,3 +5593,14 @@ width: 180px !important;
 .center-forced {
   margin: 0px auto;
 }
+.helper-search {
+  position: fixed;
+  padding-left: 10px;
+  background-color: #f0f4c3;
+  width: 100%;
+  padding-bottom: 5px;
+  padding-top: 2px;
+}
+.helper-search > span {
+  padding-left: 3px;
+}
