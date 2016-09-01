@@ -171,7 +171,7 @@ def company(request, nif):
 
     company = get_object_or_404(Companies, identifier=nif)
 
-    if(True):
+    if("bot" in str(request.META['HTTP_USER_AGENT']).lower()):
 
         structured_data = {
             "@context": "http://schema.org",
