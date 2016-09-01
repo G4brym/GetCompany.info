@@ -204,3 +204,8 @@
 	<br>
 </section>
 {% endblock%}
+{% block js %}
+<script type="application/ld+json">
+{{ structured_data|safe }}
+</script>
+{% endblock %}

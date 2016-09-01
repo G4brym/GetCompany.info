@@ -171,7 +171,53 @@ def company(request, nif):
 
     company = get_object_or_404(Companies, identifier=nif)
 
-    if("bot" in str(request.META['HTTP_USER_AGENT']).lower()):
+    if(True):
+
+        structured_data = {
+            "@context": "http://schema.org",
+            "@type": "Organization",
+            "legalName": company.name,
+            "taxID": company.identifier,
+            "address": [{
+                "@type": "PostalAddress",
+                "addressCountry": "PT"
+            }]
+        }
+
+        if company.website:
+            structured_data.update(
+                {
+                    "url": company.website
+                }
+            )
+        else:
+            structured_data.update(
+                {
+                    "url": "https://www.getcompany.info/" + str(company.identifier) + "/"
+                }
+            )
+
+        if company.address:
+            structured_data["address"][0].update({
+                "streetAddress": company.address
+            })
+
+        if company.phone:
+            structured_data.update({
+                "contactPoint": [{
+                    "@type": "ContactPoint",
+                    "telephone": "+351" + str(company.phone),
+                    "contactType": "customer service"
+                }],
+                "telephone": "+351" + str(company.phone)
+            })
+
+            if company.fax:
+                structured_data["contactPoint"][0].update(
+                    {
+                        "faxNumber": "+351" + str(company.fax)
+                    }
+                )
 
         tmp_model = Visits.objects.get_or_create(date=str(dt.datetime.now())[:10])[0]
         tmp_model.botsVisits=F('botsVisits')+1
@@ -183,7 +229,7 @@ def company(request, nif):
         random = randint(1, MAX_COMPANIES)
         random_companies = Companies.objects.filter(id__gt=random, active=True, cae=company.cae).exclude(state="")[:8]
 
-        return render(request, 'company-bots.html', {"company": company, "random_companies": random_companies, "title": str(company.name + " " + company.identifier + " - GetCompany.info")})
+        return render(request, 'company-bots.html', {"company": company, "random_companies": random_companies, "title": str(company.name + " " + company.identifier + " - GetCompany.info"), "structured_data": json.dumps(structured_data)})
 
     if company.error_crawling == True or company.already_crawled == False:
         t = threading.Thread(target=Crawl_Company,
