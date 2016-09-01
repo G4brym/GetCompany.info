@@ -1,0 +1,79 @@
+{% extends "layout.html" %}
+{% block css %}
+<script src='https://www.google.com/recaptcha/api.js'></script>
+
+{% endblock %}
+{% block content %}
+
+
+<section class="content">
+	<div class="index-title">
+	    <h1>Entrar em Contacto</h1>
+	</div>
+	<br>
+		<div class="row">
+	      <div class="col-md-8 col-md-offset-2">
+	        <div class="well">
+	          <form class="form-horizontal" action="" method="POST">
+	          {% csrf_token %}
+	          <fieldset>
+
+	            <!-- Name input-->
+	            <div class="form-group">
+	              <label class="col-md-3 control-label" for="name">Nome</label>
+	              <div class="col-md-9">
+	                <input id="name" name="name" type="text" placeholder="Seu Nome" required="required" class="form-control">
+	              </div>
+	            </div>
+
+	            <!-- Email input-->
+	            <div class="form-group">
+	              <label class="col-md-3 control-label" for="email">Email</label>
+	              <div class="col-md-9">
+	                <input id="email" name="email" type="email" placeholder="Seu Email" required="required" class="form-control">
+	              </div>
+	            </div>
+
+	            <!-- Message body -->
+	            <div class="form-group">
+	              <label class="col-md-3 control-label" for="message">Assunto</label>
+	              <div class="col-md-9">
+                            <select id="subject" name="subject" class="form-control" required="required">
+                                <option value="1">Geral</option>
+                                <option value="2">Sugestões</option>
+                                <option value="3">Alterar ou remover informações</option>
+                            </select>
+	              </div>
+	            </div>
+
+	            <!-- Email input-->
+	            <div class="form-group">
+	              <label class="col-md-3 control-label" for="email">Empresa (Opcional)</label>
+	              <div class="col-md-9">
+	                <input id="company" name="company" type="text" placeholder="A que empresa Pertence (Opcional)" class="form-control">
+	              </div>
+	            </div>
+
+	            <!-- Message body -->
+	            <div class="form-group">
+	              <label class="col-md-3 control-label" for="message">Mensagem</label>
+	              <div class="col-md-9">
+	                <textarea class="form-control" style="resize: none;" required="required" id="message" name="message" placeholder="Indique todos os detalhes aqui..." rows="5"></textarea>
+	              </div>
+	            </div>
+
+	            <!-- Message body -->
+	            <div class="form-group" style="margin-bottom: 0px">
+	              <label class="col-md-3 control-label" for="message">Captcha</label>
+	              <div class="col-md-9">
+	              	<button type="submit" class="btn btn-success contact-form-button">Enviar</button>
+	                <div class="g-recaptcha" data-sitekey="6LcMFykTAAAAABhgroBxsMYU_Ht5YbWGkYERiQs9"></div>
+	              </div>
+	            </div>
+	          </fieldset>
+	          </form>
+	        </div>
+	      </div>
+		</div>
+</section>
+{% endblock%}

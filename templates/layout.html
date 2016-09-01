@@ -22,6 +22,8 @@
         <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
         <![endif]-->
+        
+        {% block css %}{% endblock %}
 
         <!-- Prefetching, preloading, prebrowsing -->
         <link rel="dns-prefetch" href="//getcompany.info/">
@@ -138,10 +140,11 @@
                     <!-- Sidebar Menu -->
                     <ul class="sidebar-menu">
                         <!-- Optionally, you can add icons to the links -->
-                        <li><a href="/"><i class="fa fa-link"></i> <span>Início</span></a></li>
+                        <li><a href="/"><i class="fa fa-home"></i> <span>Início</span></a></li>
                         <!--<li><a href="/about/"><i class="fa fa-link"></i> <span>Sobre Nós</span></a></li>
                         <li><a href="/terms/"><i class="fa fa-link"></i> <span>Termos de Serviço</span></a></li>-->
-                        <li><a href="/v1/docs/"><i class="fa fa-link"></i> <span>Documentação</span></a></li>
+                        <li><a href="/contact/"><i class="fa fa-life-ring"></i> <span>Contactar</span></a></li>
+                        <li><a href="/v1/docs/"><i class="fa fa-book"></i> <span>Documentação</span></a></li>
                     </ul>
                     <ul class="sidebar-menu hide-tmp" id="search-display">
                         <li class="header">Pesquisa</li>
@@ -174,7 +177,7 @@
                 <!-- To the right -->
                 <div class="pull-right hidden-xs">
                     <small>
-                        Versão 1.1.2
+                        Versão 1.2.0 <a href="/contact/">Contactar</a>
                     </small>
                 </div>
                 <!-- Default to the left -->
@@ -201,7 +204,16 @@
           ga('create', 'UA-76825720-1', 'auto');
           ga('send', 'pageview');
 
+            {% if error %}
+                newError("{{ error }}");
+            {% endif %}
+
+            {% if success %}
+                newSuccess("{{ success }}");
+            {% endif %}
+
         </script>
+
 
         {% block js %}{% endblock %}
     </body>

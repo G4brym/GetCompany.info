@@ -5600,7 +5600,22 @@ width: 180px !important;
   width: 100%;
   padding-bottom: 5px;
   padding-top: 2px;
+  top: 101px;
 }
 .helper-search > span {
   padding-left: 3px;
+}
+.public-info {
+  margin: 0px;
+  padding: 10px;
+  background-color: #fff9c4;
+}
+.contact-form-button {
+  float: right;
+  margin-top: 22px;
+  margin-right: 35px;
+}
+.g-recaptcha {
+  width: 304px;
+  height: 78px;
 }

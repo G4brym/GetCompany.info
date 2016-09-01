@@ -29,6 +29,7 @@ import time
 from random import shuffle, randint
 import sys
 import math
+import smtplib
 
 from bs4 import BeautifulSoup
 
@@ -36,7 +37,7 @@ from Main.handlers.utilities import get_remote_IP, check_recaptcha
 from Main.handlers.settings import MAX_COMPANIES
 from Main.API.manager import api
 from Main.handlers.view import view_handler, add_error, add_success
-from Main.models import Companies, Tokens, CAE, Visits
+from Main.models import Companies, Tokens, CAE, Visits, Messages
 
 
 def error500(request):
@@ -291,6 +292,102 @@ def docs(request):
     random_companies = Companies.objects.filter(id__gt=random, active=True).exclude(state="")[:8]
 
     return render(request, 'documentation.html', {"random_companies": random_companies})
+
+def contact(request):
+    random = randint(1, MAX_COMPANIES)
+    random_companies = Companies.objects.filter(id__gt=random, active=True).exclude(state="")[:8]
+
+    if request.method == "POST":
+        try:
+
+            grecaptcharesponse = request.POST.get("g-recaptcha-response", '')
+
+            if (grecaptcharesponse.strip() == ''):
+                return render(request, 'contact.html', {"random_companies": random_companies, "error": "Captcha é obrigatorio"})
+
+            name = request.POST["name"].strip()
+            email = request.POST["email"].strip()
+            message = request.POST["message"].strip()
+            company = request.POST.get("company", '').strip()
+            subject = request.POST["subject"]
+
+            # Verify if the recaptcha is valid
+            data = urllib.parse.urlencode({"secret": "6LcMFykTAAAAADsrJh8PGYKt_wJlhH67d7HgtKQT", "response": grecaptcharesponse, "remoteip": get_remote_IP(request)})
+            binary_data = data.encode('utf-8')
+            u = urllib.request.urlopen("https://www.google.com/recaptcha/api/siteverify", binary_data)
+            result = u.read()
+            recaptcha_result = json.loads(result.decode('utf-8'))
+
+            if recaptcha_result["success"] == False:
+                return render(request, 'contact.html', {"random_companies": random_companies, "error": "Captcha não é valido, tente novamente"})
+
+            if subject not in ["1", "2", "3"]:
+                return render(request, 'contact.html', {"random_companies": random_companies, "error": "Ocorreu um erro, tente novamente"})
+
+            if len(name) < 1:
+                return render(request, 'contact.html', {"random_companies": random_companies, "error": "O nome é obrigatorio"})
+
+            if len(email) < 1:
+                return render(request, 'contact.html', {"random_companies": random_companies, "error": "O email é obrigatorio"})
+
+            if not re.match(r"[^@]+@[^@]+\.[^@]+", email):
+                return render(request, 'contact.html', {"random_companies": random_companies, "error": "O email não é valido"})
+
+            if len(message) < 1:
+                return render(request, 'contact.html', {"random_companies": random_companies, "error": "A mensagem é obrigatoria"})
+
+            if len(name) > 50:
+                name = name[0:50]
+
+            if len(email) > 50:
+                email = email[0:50]
+
+            if len(message) > 1000:
+                message = message[0:1000]
+
+            if len(company) > 50:
+                company = company[0:50]
+
+            Messages.objects.create(
+                name=name,
+                email=email,
+                message=message,
+                company=company,
+                subject=subject,
+                ip=get_remote_IP(request),
+                useragent=request.META['HTTP_USER_AGENT']
+                )
+
+            msg = "Nome: " + name + "<br>" +\
+                  "Email: " + email + "<br><br>" +\
+                  "Menssagem: " + message + "<br><br>" +\
+                  "Empresa: " + company + "<br>" +\
+                  "Assunto: " + subject + "<br>" +\
+                  "IP: " + get_remote_IP(request) + "<br>" +\
+                  "User agent: " + request.META['HTTP_USER_AGENT']
+
+            #server = smtplib.SMTP('email-smtp.eu-west-1.amazonaws.com', 587)
+            #server.starttls()
+            #server.login("AKIAJOC4XZIGAUSZLEOQ", "AirnM3CsFyXHNWwslk2aTjOFa1/o0Wu+t3WnXuuhm1Wi")
+
+            #server.sendmail("geral@getcompany.info", "g4bryrm98@gmail.com", msg)
+            #server.quit()
+
+            return render(request, 'contact.html', {"random_companies": random_companies, "success": "Mensagem enviada, aguarde resposta nos proximos dias"})
+
+        except:
+            return render(request, 'contact.html', {"random_companies": random_companies, "error": "Ocorreu um erro, tente novamente"})
+
+    if("bot" in str(request.META['HTTP_USER_AGENT']).lower()):
+        tmp_model = Visits.objects.get_or_create(date=str(dt.datetime.now())[:10])[0]
+        tmp_model.botsVisits=F('botsVisits')+1
+        tmp_model.save()
+    else:
+        tmp_model = Visits.objects.get_or_create(date=str(dt.datetime.now())[:10])[0]
+        tmp_model.usersVisits=F('usersVisits')+1
+        tmp_model.save()
+
+    return render(request, 'contact.html', {"random_companies": random_companies})
 
 def status(request):
 

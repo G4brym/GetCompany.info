@@ -355,6 +355,15 @@ function newError(msg) {
     });
 }
 
+function newSuccess(msg) {
+    new PNotify({
+        title: 'Sucesso',
+        text: msg,
+        icon: 'fa fa-check',
+        type: 'success'
+    });
+}
+
 var sidebar_clicked_with_search = false;
 
 $("#toggle-sidebar").on( "click", function() {

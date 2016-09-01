@@ -1,6 +1,22 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+class Messages(models.Model):
+    name = models.TextField(max_length=50)
+    email = models.EmailField(max_length=50)
+    subject = models.TextField(max_length=10)
+    company = models.TextField(max_length=50, null=True)
+    message = models.TextField(max_length=1000)
+
+    ip = models.GenericIPAddressField(max_length=100)
+    useragent = models.TextField(max_length=200)
+
+    created_at = models.DateTimeField(auto_now_add=True, auto_now=False)
+    updated_at = models.DateTimeField(auto_now_add=True, auto_now=False)
+
+    class Meta:
+        app_label = 'Main'
+
 class Visits(models.Model):
     usersVisits = models.IntegerField(default=0)
     botsVisits = models.IntegerField(default=0)

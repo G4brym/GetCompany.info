@@ -28,6 +28,7 @@ urlpatterns = [
     url(r'^c/(?P<nif>[0-9]+)/$', redirectCompany, name="redirect"),
     url(r'^about/$', about, name="about"),
     url(r'^terms/$', terms, name="terms"),
+    url(r'^contact/$', contact, name="contact"),
 
     url(r'^v1/$', v1_req, name="v1"),
     url(r'^v1/docs/$', docs, name="docs"),
