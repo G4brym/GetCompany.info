@@ -1,0 +1,22 @@
+<h2>Nome: {{ name }}</h2>
+<br><br>
+Email: {{ email }}<br>
+Empresa: {{ company }}<br>
+{% if subject == "1" %}
+Assunto: Geral<br>
+{% elif subject == "2" %}
+Assunto: Sugestões<br>
+{% else %}
+Assunto: Alterar ou remover informações<br>
+{% endif %}
+<br>
+-------------<br>
+<br>
+<br>
+Menssagem: {{ message }}
+<br>
+<br>
+-------------<br>
+<br>
+IP: {{ ip }}<br>
+User agent: {{ useragent }}<br>

@@ -16,6 +16,9 @@ from django.db import IntegrityError
 from django.conf import settings
 from django.utils import timezone
 from django.db.models import F
+from django.core.mail import send_mail
+from django.core.mail import EmailMultiAlternatives
+from django.template.loader import render_to_string
 
 import datetime as dt
 import json
@@ -358,20 +361,20 @@ def contact(request):
                 useragent=request.META['HTTP_USER_AGENT']
                 )
 
-            msg = "Nome: " + name + "<br>" +\
-                  "Email: " + email + "<br><br>" +\
-                  "Menssagem: " + message + "<br><br>" +\
-                  "Empresa: " + company + "<br>" +\
-                  "Assunto: " + subject + "<br>" +\
-                  "IP: " + get_remote_IP(request) + "<br>" +\
-                  "User agent: " + request.META['HTTP_USER_AGENT']
+            t = loader.get_template('emails/contact.html')
+            output = t.render({
+                "name": name,
+                "email": email,
+                "message": message,
+                "company": company,
+                "subject": subject,
+                "ip": get_remote_IP(request),
+                "useragent": request.META['HTTP_USER_AGENT']
+            })
 
-            #server = smtplib.SMTP('email-smtp.eu-west-1.amazonaws.com', 587)
-            #server.starttls()
-            #server.login("AKIAJOC4XZIGAUSZLEOQ", "AirnM3CsFyXHNWwslk2aTjOFa1/o0Wu+t3WnXuuhm1Wi")
-
-            #server.sendmail("geral@getcompany.info", "g4bryrm98@gmail.com", msg)
-            #server.quit()
+            msg = EmailMultiAlternatives("GetCompany.Info - " + str(name), output, "geral@getcompany.info", ["g4bryrm98@hotmail.com"])
+            msg.attach_alternative(output, 'text/html')
+            msg.send(True)
 
             return render(request, 'contact.html', {"random_companies": random_companies, "success": "Mensagem enviada, aguarde resposta nos proximos dias"})
 
