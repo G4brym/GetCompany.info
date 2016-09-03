@@ -14,3 +14,9 @@ def get_DEBUG():
         return True
     else:
         return False
+        
+def is_bot(request):
+    if("bot" in str(request.META['HTTP_USER_AGENT']).lower()):
+        return True
+    else:
+        return False

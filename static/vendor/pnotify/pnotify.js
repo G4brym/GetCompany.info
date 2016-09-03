@@ -1,26 +1,3 @@
-/* PNotify modules included in this custom build file:
-brighttheme
-buttons
-desktop
-mobile
-*/
-/*
-PNotify 3.0.0 sciactive.com/pnotify/
-(C) 2015 Hunter Perrin; Google, Inc.
-license Apache-2.0
-*/
-/*
- * ====== PNotify ======
- *
- * http://sciactive.com/pnotify/
- *
- * Copyright 2009-2015 Hunter Perrin
- * Copyright 2015 Google, Inc.
- *
- * Licensed under Apache License, Version 2.0.
- * 	http://www.apache.org/licenses/LICENSE-2.0
- */
-
 (function (root, factory) {
     if (typeof define === 'function' && define.amd) {
         // AMD. Register as a module.

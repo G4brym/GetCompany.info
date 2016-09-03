@@ -37,7 +37,7 @@ import smtplib
 from bs4 import BeautifulSoup
 
 from Main.handlers.utilities import get_remote_IP, check_recaptcha
-from Main.handlers.settings import MAX_COMPANIES
+from Main.handlers.settings import MAX_COMPANIES, get_DEBUG, is_bot
 from Main.API.manager import api
 from Main.handlers.view import view_handler, add_error, add_success
 from Main.models import Companies, Tokens, CAE, Visits, Messages
@@ -57,13 +57,13 @@ def error500(request):
     random = randint(1, MAX_COMPANIES)
     random_companies = Companies.objects.filter(id__gt=random, active=True).exclude(state="")[:8]
 
-    return render(request, 'error500.html', {"random_companies": random_companies}, status="500")
+    return render(request, 'error500.html', {"is_bot": is_bot(request), "debug": get_DEBUG() , "random_companies": random_companies}, status="500")
 
 #def error404(request):
 #    random = randint(1, MAX_COMPANIES)
 #    random_companies = Companies.objects.filter(id__gt=random, active=True).exclude(state="")[:8]
 
-#    return render(request, '404.html', {"random_companies": random_companies}, status="404")
+#    return render(request, '404.html', {"is_bot": is_bot(request), "debug": get_DEBUG() , "random_companies": random_companies}, status="404")
 
 # Create your views here.
 @csrf_exempt
@@ -167,7 +167,7 @@ def index(request):
     random = randint(1, MAX_COMPANIES)
     random_companies = Companies.objects.filter(id__gt=random, active=True).exclude(state="")[:8]
 
-    return render(request, 'index.html', {"random_companies": random_companies})
+    return render(request, 'index.html', {"is_bot": is_bot(request), "debug": get_DEBUG() , "random_companies": random_companies})
 
 def company(request, nif):
 
@@ -233,7 +233,7 @@ def company(request, nif):
         random = randint(1, MAX_COMPANIES)
         random_companies = Companies.objects.filter(id__gt=random, active=True, cae=company.cae).exclude(state="")[:8]
 
-        return render(request, 'company-bots.html', {"company": company, "random_companies": random_companies, "title": str(company.name + " " + company.identifier + " - GetCompany.info"), "structured_data": json.dumps(structured_data)})
+        return render(request, 'company-bots.html', {"is_bot": is_bot(request), "debug": get_DEBUG() , "company": company, "random_companies": random_companies, "title": str(company.name + " " + company.identifier + " - GetCompany.info"), "structured_data": json.dumps(structured_data)})
 
     if company.error_crawling == True or company.already_crawled == False:
         t = threading.Thread(target=Crawl_Company,
@@ -275,7 +275,7 @@ def company(request, nif):
     random = randint(1, MAX_COMPANIES)
     random_companies = Companies.objects.filter(id__gt=random, active=True, cae=company.cae).exclude(state="")[:8]
 
-    return render(request, 'company.html', {"company": company, "random_companies": random_companies, "token": current_hash, "title": str(company.name + " " + company.identifier + " - GetCompany.info")})
+    return render(request, 'company.html', {"is_bot": is_bot(request), "debug": get_DEBUG() , "company": company, "random_companies": random_companies, "token": current_hash, "title": str(company.name + " " + company.identifier + " - GetCompany.info")})
 
 def redirectCompany(request, nif):
     return HttpResponseRedirect("/" + str(nif) + "/")
@@ -294,7 +294,7 @@ def docs(request):
     random = randint(1, MAX_COMPANIES)
     random_companies = Companies.objects.filter(id__gt=random, active=True).exclude(state="")[:8]
 
-    return render(request, 'documentation.html', {"random_companies": random_companies})
+    return render(request, 'documentation.html', {"is_bot": is_bot(request), "debug": get_DEBUG() , "random_companies": random_companies})
 
 def contact(request):
     random = randint(1, MAX_COMPANIES)
@@ -306,7 +306,7 @@ def contact(request):
             grecaptcharesponse = request.POST.get("g-recaptcha-response", '')
 
             if (grecaptcharesponse.strip() == ''):
-                return render(request, 'contact.html', {"random_companies": random_companies, "error": "Captcha é obrigatorio"})
+                return render(request, 'contact.html', {"is_bot": is_bot(request), "debug": get_DEBUG() , "random_companies": random_companies, "error": "Captcha é obrigatorio"})
 
             name = request.POST["name"].strip()
             email = request.POST["email"].strip()
@@ -322,22 +322,22 @@ def contact(request):
             recaptcha_result = json.loads(result.decode('utf-8'))
 
             if recaptcha_result["success"] == False:
-                return render(request, 'contact.html', {"random_companies": random_companies, "error": "Captcha não é valido, tente novamente"})
+                return render(request, 'contact.html', {"is_bot": is_bot(request), "debug": get_DEBUG() , "random_companies": random_companies, "error": "Captcha não é valido, tente novamente"})
 
             if subject not in ["1", "2", "3"]:
-                return render(request, 'contact.html', {"random_companies": random_companies, "error": "Ocorreu um erro, tente novamente"})
+                return render(request, 'contact.html', {"is_bot": is_bot(request), "debug": get_DEBUG() , "random_companies": random_companies, "error": "Ocorreu um erro, tente novamente"})
 
             if len(name) < 1:
-                return render(request, 'contact.html', {"random_companies": random_companies, "error": "O nome é obrigatorio"})
+                return render(request, 'contact.html', {"is_bot": is_bot(request), "debug": get_DEBUG() , "random_companies": random_companies, "error": "O nome é obrigatorio"})
 
             if len(email) < 1:
-                return render(request, 'contact.html', {"random_companies": random_companies, "error": "O email é obrigatorio"})
+                return render(request, 'contact.html', {"is_bot": is_bot(request), "debug": get_DEBUG() , "random_companies": random_companies, "error": "O email é obrigatorio"})
 
             if not re.match(r"[^@]+@[^@]+\.[^@]+", email):
-                return render(request, 'contact.html', {"random_companies": random_companies, "error": "O email não é valido"})
+                return render(request, 'contact.html', {"is_bot": is_bot(request), "debug": get_DEBUG() , "random_companies": random_companies, "error": "O email não é valido"})
 
             if len(message) < 1:
-                return render(request, 'contact.html', {"random_companies": random_companies, "error": "A mensagem é obrigatoria"})
+                return render(request, 'contact.html', {"is_bot": is_bot(request), "debug": get_DEBUG() , "random_companies": random_companies, "error": "A mensagem é obrigatoria"})
 
             if len(name) > 50:
                 name = name[0:50]
@@ -376,10 +376,10 @@ def contact(request):
             msg.attach_alternative(output, 'text/html')
             msg.send(True)
 
-            return render(request, 'contact.html', {"random_companies": random_companies, "success": "Mensagem enviada, aguarde resposta nos proximos dias"})
+            return render(request, 'contact.html', {"is_bot": is_bot(request), "debug": get_DEBUG() , "random_companies": random_companies, "success": "Mensagem enviada, aguarde resposta nos proximos dias"})
 
         except:
-            return render(request, 'contact.html', {"random_companies": random_companies, "error": "Ocorreu um erro, tente novamente"})
+            return render(request, 'contact.html', {"is_bot": is_bot(request), "debug": get_DEBUG() , "random_companies": random_companies, "error": "Ocorreu um erro, tente novamente"})
 
     if("bot" in str(request.META['HTTP_USER_AGENT']).lower()):
         tmp_model = Visits.objects.get_or_create(date=str(dt.datetime.now())[:10])[0]
@@ -390,7 +390,7 @@ def contact(request):
         tmp_model.usersVisits=F('usersVisits')+1
         tmp_model.save()
 
-    return render(request, 'contact.html', {"random_companies": random_companies})
+    return render(request, 'contact.html', {"is_bot": is_bot(request), "debug": get_DEBUG() , "random_companies": random_companies})
 
 def status(request):
 
