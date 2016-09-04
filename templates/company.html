@@ -112,6 +112,9 @@
 {% endblock%}
 {% block js %}
 <script>
+	$(document).ready(function() {
+		crawl("{{ token }}");
+	});
     var disqus_config = function () {
         this.page.url = document.URL;
         this.page.identifier = '{{ company.id }}';
@@ -125,9 +128,7 @@
         (d.head || d.body).appendChild(s);
     })();
 </script>
-<script>
-	$(document).ready(function() {
-		crawl("{{ token }}");
-	});
+<script type="application/ld+json">
+	{{ structured_data|safe }}
 </script>
 {% endblock %}

@@ -171,57 +171,55 @@ def index(request):
 
 def company(request, nif):
 
-
-
     company = get_object_or_404(Companies, identifier=nif)
 
+    structured_data = {
+        "@context": "http://schema.org",
+        "@type": "Organization",
+        "legalName": company.name,
+        "taxID": company.identifier,
+        "address": [{
+            "@type": "PostalAddress",
+            "addressCountry": "PT"
+        }]
+    }
+
+    if company.website:
+        structured_data.update(
+            {
+                "url": company.website
+            }
+        )
+    else:
+        structured_data.update(
+            {
+                "url": "https://www.getcompany.info/" + str(company.identifier) + "/"
+            }
+        )
+
+    if company.address:
+        structured_data["address"][0].update({
+            "streetAddress": company.address
+        })
+
+    if company.phone:
+        structured_data.update({
+            "contactPoint": [{
+                "@type": "ContactPoint",
+                "telephone": "+351" + str(company.phone),
+                "contactType": "customer service"
+            }],
+            "telephone": "+351" + str(company.phone)
+        })
+
+        if company.fax:
+            structured_data["contactPoint"][0].update(
+                {
+                    "faxNumber": "+351" + str(company.fax)
+                }
+            )
+
     if("bot" in str(request.META['HTTP_USER_AGENT']).lower()):
-
-        structured_data = {
-            "@context": "http://schema.org",
-            "@type": "Organization",
-            "legalName": company.name,
-            "taxID": company.identifier,
-            "address": [{
-                "@type": "PostalAddress",
-                "addressCountry": "PT"
-            }]
-        }
-
-        if company.website:
-            structured_data.update(
-                {
-                    "url": company.website
-                }
-            )
-        else:
-            structured_data.update(
-                {
-                    "url": "https://www.getcompany.info/" + str(company.identifier) + "/"
-                }
-            )
-
-        if company.address:
-            structured_data["address"][0].update({
-                "streetAddress": company.address
-            })
-
-        if company.phone:
-            structured_data.update({
-                "contactPoint": [{
-                    "@type": "ContactPoint",
-                    "telephone": "+351" + str(company.phone),
-                    "contactType": "customer service"
-                }],
-                "telephone": "+351" + str(company.phone)
-            })
-
-            if company.fax:
-                structured_data["contactPoint"][0].update(
-                    {
-                        "faxNumber": "+351" + str(company.fax)
-                    }
-                )
 
         tmp_model = Visits.objects.get_or_create(date=str(dt.datetime.now())[:10])[0]
         tmp_model.botsVisits=F('botsVisits')+1
