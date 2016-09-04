@@ -12,12 +12,16 @@
             <title>Empresas por actividade - GetCompany Info</title>
         {% endif %}
 
-        {% if debug == False %}
-            <link rel="stylesheet" href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}">
-            <link rel="stylesheet" href="{% static 'vendor/font-awesome/css/font-awesome.min.css' %}">
-            <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+        {% if is_bot == False %}
+            {% if debug == True %}
+                <link rel="stylesheet" href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}">
+                <link rel="stylesheet" href="{% static 'vendor/font-awesome/css/font-awesome.min.css' %}">
+                <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+            {% else %}
+                <link rel="stylesheet" href="{% static 'production/styles.min.css' %}">
+            {% endif %}
         {% else %}
-            <link rel="stylesheet" href="{% static 'production/styles.min.css' %}">
+            <link rel="stylesheet" href="{% static 'production/styles.bot.min.css' %}">
         {% endif %}
 
         {% block css %}{% endblock %}
