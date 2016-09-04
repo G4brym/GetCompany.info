@@ -397,7 +397,7 @@ def status(request):
     try:
         pw = request.GET["pw"]
     except:
-        return render(request, '404.html')
+        return render(request, '404.html', {"is_bot": is_bot(request), "debug": get_DEBUG()})
 
     if(pw == "justdoit"):
 
@@ -422,13 +422,15 @@ def status(request):
             "labels": json.dumps(dic["labels"]),
             "uservisits": json.dumps(dic["uservisits"]),
             "botvisits": json.dumps(dic["botvisits"]),
-            "companiesCrawled": json.dumps(dic["companiesCrawled"])
+            "companiesCrawled": json.dumps(dic["companiesCrawled"]),
+            "is_bot": is_bot(request),
+            "debug": get_DEBUG()
         }
 
         return render(request, 'status.html', final_dict)
 
     else:
-        return render(request, '404.html')
+        return render(request, '404.html', {"is_bot": is_bot(request), "debug": get_DEBUG()})
 
 
 def about(request):
