@@ -116,9 +116,15 @@
                         </div>
                     </div>
                     <ul class="sidebar-menu">
+{% if is_bot == False %}
                         <li><a href="/"><i class="fa fa-home"></i> <span>Início</span></a></li>
                         <li><a href="/contact/"><i class="fa fa-life-ring"></i> <span>Contactar</span></a></li>
                         <li><a href="/v1/docs/"><i class="fa fa-book"></i> <span>Documentação</span></a></li>
+{% else %}
+                        <li><a href="/"><span>Início</span></a></li>
+                        <li><a href="/contact/"><span>Contactar</span></a></li>
+                        <li><a href="/v1/docs/"><span>Documentação</span></a></li>
+{% endif %}
                     </ul>
                     <ul class="sidebar-menu hide-tmp" id="search-display">
                         <li class="header">Pesquisa</li>
