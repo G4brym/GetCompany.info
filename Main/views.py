@@ -273,7 +273,7 @@ def company(request, nif):
     random = randint(1, MAX_COMPANIES)
     random_companies = Companies.objects.filter(id__gt=random, active=True, cae=company.cae).exclude(state="")[:8]
 
-    return render(request, 'company.html', {"is_bot": is_bot(request), "debug": get_DEBUG() , "company": company, "random_companies": random_companies, "token": current_hash, "title": str(company.name + " " + company.identifier + " - GetCompany.info")})
+    return render(request, 'company.html', {"is_bot": is_bot(request), "debug": get_DEBUG() , "company": company, "random_companies": random_companies, "token": current_hash, "title": str(company.name + " " + company.identifier + " - GetCompany.info"), "structured_data": json.dumps(structured_data)})
 
 def redirectCompany(request, nif):
     return HttpResponseRedirect("/" + str(nif) + "/")
