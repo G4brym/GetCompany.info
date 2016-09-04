@@ -191,25 +191,6 @@
 			</div>
 			<!-- /.col -->
 		</div>
-	<h2 class="page-header companies-h2">Empresas Com O Mesmo CAE</h2>
-	<div class="row">
-		{% for comp in random_companies %}
-		<div class="col-md-3 col-sm-6 col-xs-12">
-			<a href="/{{ comp.identifier }}/" class="related-company-link">
-				<div class="info-box related-company-color">
-					<div class="related-compamy">
-						<span class="info-box-text">{{ comp.name }}</span>
-						<span class="info-box-number">{{ comp.state }}</span>
-						<hr class="company-divider">
-						<span class="progress-description">
-						Início de Actividade: {{ comp.started_at|default:"Desconhecido" }}
-						</span>
-					</div>
-				</div>
-			</a>
-		</div>
-		{% endfor %}
-	</div>
 	<br>
 </section>
 {% endblock%}

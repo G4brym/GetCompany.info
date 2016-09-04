@@ -230,10 +230,10 @@ def company(request, nif):
         company.visits_bots += 1
         company.save()
 
-        random = randint(1, MAX_COMPANIES)
-        random_companies = Companies.objects.filter(id__gt=random, active=True, cae=company.cae).exclude(state="")[:8]
+        #random = randint(1, MAX_COMPANIES)
+        #random_companies = Companies.objects.filter(id__gt=random, active=True, cae=company.cae).exclude(state="")[:8]
 
-        return render(request, 'company-bots.html', {"is_bot": is_bot(request), "debug": get_DEBUG() , "company": company, "random_companies": random_companies, "title": str(company.name + " " + company.identifier + " - GetCompany.info"), "structured_data": json.dumps(structured_data)})
+        return render(request, 'company-bots.html', {"is_bot": is_bot(request), "debug": get_DEBUG() , "company": company, "title": str(company.name + " " + company.identifier + " - GetCompany.info"), "structured_data": json.dumps(structured_data)})
 
     if company.error_crawling == True or company.already_crawled == False:
         t = threading.Thread(target=Crawl_Company,
