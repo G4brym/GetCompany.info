@@ -5513,6 +5513,7 @@ width: 180px !important;
 @media(max-width:767px) {
   .adsense-one {
     width: 100%;
+    margin-bottom: 15px;
   }
   .adsense-two {
     height: 150px;
