@@ -5497,3 +5497,31 @@ width: 180px !important;
   width: 304px;
   height: 78px;
 }
+
+.adsense-one {
+  display: inline-block !important;
+  width: 338px;
+  height: 280px;
+}
+
+.adsense-two {
+  display: inline-block !important;
+  width: 100%;
+  height: 90px;
+}
+
+@media(max-width:767px) {
+  .adsense-one {
+    width: 100%;
+  }
+  .adsense-two {
+    height: 150px;
+  }
+  .ad-two {
+    padding: 0px;
+  }
+  .comp-fix {
+    padding: 0px;
+  }
+
+}

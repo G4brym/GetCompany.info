@@ -12,7 +12,7 @@
 <section class="content">
 	<!-- ./col -->
 	<div class="row">
-		<div class="col-md-8" style="width: 668px !important;">
+		<div class="col-md-8 comp-fix" style="width: 668px !important;">
 			<div class="box box-solid" style="height: 280px; overflow-y: auto; width: 638px;">
 				<!-- /.box-header -->
 				<div class="box-body">
@@ -49,22 +49,15 @@
 			<!-- /.box -->
 		</div>
 		<!-- ./col -->
-		<div class="md-col-4" style="">
-		    <div style="padding-bottom: 20px">
-				<script type="text/javascript">
-					google_ad_client = "ca-pub-3899991868406055";
-					google_ad_slot = "8431215722";
-					google_ad_width = 336;
-					google_ad_height = 280;
-				</script>
-				<!-- company 1 -->
-				<script type="text/javascript"
-					src="//pagead2.googlesyndication.com/pagead/show_ads.js"></script>
-		    </div>
+		<div class="md-col-4">
+			<ins class="adsbygoogle adsense-one"
+			     style="display:block"
+			     data-ad-client="ca-pub-3899991868406055"
+			     data-ad-slot="6971678525"></ins>
 		</div>
 	</div>
 		<div class="row" id="comp-about-div" style="display: none;">
-			<div class="col-md-12">
+			<div class="col-md-12 comp-fix">
 				<!-- Custom Tabs -->
 				<div class="nav-tabs-custom">
 					<ul class="nav nav-tabs" id="comp-about-tiles">
@@ -78,17 +71,26 @@
 			<!-- /.col -->
 		</div>
 		<div class="row">
-			<div class="col-md-12">
+			<div class="col-md-12 comp-fix">
 				<div class="box box-solid">
 					<h4 class="public-info center-force">Informações Disponiveis Publicamente Na Internet</h4>
 				</div>
 			</div>
 			<!-- /.col -->
 		</div>
+		<div class="row">
+			<div class="col-md-12 comp-fix">
+				<ins class="adsbygoogle adsense-two"
+				     style="display:block"
+				     data-ad-client="ca-pub-3899991868406055"
+				     data-ad-slot="6971678525"></ins>
+			</div>
+			<!-- /.col -->
+		</div>
 	<h2 class="page-header companies-h2">Empresas Com O Mesmo CAE</h2>
 	<div class="row">
 		{% for comp in random_companies %}
-		<div class="col-md-3 col-sm-6 col-xs-12">
+		<div class="col-md-3 col-sm-6 col-xs-12 comp-fix">
 			<a href="/{{ comp.identifier }}/" class="related-company-link">
 				<div class="info-box related-company-color">
 					<div class="related-compamy">
@@ -104,7 +106,15 @@
 		</div>
 		{% endfor %}
 	</div>
-	<br>
+		<div class="row">
+			<div class="col-md-12 comp-fix">
+				<ins class="adsbygoogle adsense-two"
+				     style="display:block"
+				     data-ad-client="ca-pub-3899991868406055"
+				     data-ad-slot="6971678525"></ins>
+			</div>
+			<!-- /.col -->
+		</div>
 	<div id="disqus_thread"></div>
 	<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
 
@@ -130,5 +140,11 @@
 </script>
 <script type="application/ld+json">
 	{{ structured_data|safe }}
+</script>
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+(adsbygoogle = window.adsbygoogle || []).push({});
+(adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 {% endblock %}
