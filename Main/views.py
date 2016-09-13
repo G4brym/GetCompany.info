@@ -407,7 +407,10 @@ def status(request):
             "companiesCrawled": []
         }
 
-        visitas = Visits.objects.all().order_by('-id')[:30].reverse()
+        counter = Visits.objects.all().count()
+        counter -= 30
+
+        visitas = Visits.objects.all().order_by('-id')[:30]
 
         for visit in visitas:
             dic["labels"].append(str(visit.date)[:10])
