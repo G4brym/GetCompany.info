@@ -41,6 +41,7 @@ from Main.handlers.settings import MAX_COMPANIES, get_DEBUG, is_bot
 from Main.API.manager import api
 from Main.handlers.view import view_handler, add_error, add_success
 from Main.models import Companies, Tokens, CAE, Visits, Messages
+from Main.handlers.twitter.tweet import send_update
 
 
 def error500(request):
@@ -676,6 +677,12 @@ def Crawl_Company(nif):
         company.error_crawling = False
 
         company.save()
+
+        t = threading.Thread(target=send_update,
+                                    args=[company])
+        t.setDaemon(True)
+        t.start()
+
 
         tmp_model = Visits.objects.get_or_create(date=str(dt.datetime.now())[:10])[0]
         tmp_model.companiesCrawled=F('companiesCrawled')+1
