@@ -1,10 +1,24 @@
 # GetCompany Info
 This is a company repository, it was online at https://www.getcompany.info/ but because it didn much trafict i shut it down.
 
-### Company Informations
+### 1. Company Informations
 This project doen't have any company informations out of the box, you have to get it however you want and add it to the database by yourself
 
-### Requirements
+### 2. Features
+
+* ~ 400 ms load time (html + css + js)
+* REST API to load companies information
+* Secure API to prevent crawl bots from dumping all Database
+* Cache system to save companies informations
+* Contact form, and email system to send the form to the website admin
+* Twitter integration, 1 tweet send for each new company crawled
+* Full cloudflare integration to archive max 400ms load time
+* Elastic beans talk full support
+* Postgres Database
+* Automatic sitemap generator
+* SEO optimization + google structured data to friendly SEO
+
+### 3. Requirements
 
 This project requires the following libraries to work:
 
@@ -15,7 +29,7 @@ This project requires the following libraries to work:
 * django-debug-toolbar
 * tweepy
 
-### Run
+### 4. Pre-Run
 To run this Django project you have to setup some enviremont vars:
 Remember that this project requires a Postgresql database, or you can change the settings file for another database.
 
@@ -31,15 +45,16 @@ Remember that this project requires a Postgresql database, or you can change the
 10. export TWITTER_ACESS_TOK="Twitter acess token"
 11. export TWITTER_ACESS_SEC="Twitter acess secret"
 
+### 5. Run
 To start the server run:
 
 1. python3 manage.py migrate
 2. python3 manage.py runserver
 
-### Elastic beanstalk
+### 6. Elastic beanstalk
 This project is ready to use in the amazon elastic beanstalk, just run "eb init" and "eb deloy name" and you are ready to go
 
-### Preview
+### 7. Preview
 Index Page
 ![index page](https://github.com/G4brym/GetCompany.info/raw/master/index.png)
 
@@ -52,7 +67,7 @@ Contact Page
 Hidden Status Page
 ![status page](https://github.com/G4brym/GetCompany.info/raw/master/status.png)
 
-### Statistics
+### 8. Statistics
 
 100% optimized load time
 ![load_time page](https://github.com/G4brym/GetCompany.info/raw/master/load_time.png)
