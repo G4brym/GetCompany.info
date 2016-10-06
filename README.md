@@ -33,7 +33,8 @@ Remember that this project requires a Postgresql database, or you can change the
 
 To start the server run:
 
-1. python3 manage.py runserver
+1. python3 manage.py migrate
+2. python3 manage.py runserver
 
 ### Elastic beanstalk
 This project is ready to use in the amazon elastic beanstalk, just run "eb init" and "eb deloy name" and you are ready to go
@@ -46,18 +47,24 @@ Company Page
 ![company page](https://github.com/G4brym/GetCompany.info/raw/master/company.png)
 
 Contact Page
-![company page](https://github.com/G4brym/GetCompany.info/raw/master/contact.png)
+![contact page](https://github.com/G4brym/GetCompany.info/raw/master/contact.png)
+
+Hidden Status Page
+![status page](https://github.com/G4brym/GetCompany.info/raw/master/status.png)
 
 ### Statistics
 
+100% optimized load time
+![load_time page](https://github.com/G4brym/GetCompany.info/raw/master/load_time.png)
+
 Clicks and impressions on Google Search
-![company page](https://github.com/G4brym/GetCompany.info/raw/master/google_search.png)
+![google_search page](https://github.com/G4brym/GetCompany.info/raw/master/google_search.png)
 
 Last month we where online - cloudflare stats
-![company page](https://github.com/G4brym/GetCompany.info/raw/master/last_month.png)
+![last_month page](https://github.com/G4brym/GetCompany.info/raw/master/last_month.png)
 
 Google Structured Data - all companies were SEO friendly with structured data
-![company page](https://github.com/G4brym/GetCompany.info/raw/master/search_data.png)
+![search_data page](https://github.com/G4brym/GetCompany.info/raw/master/search_data.png)
 
 Twitter page - every time we crawl a new company we publish a new tweet
-![company page](https://github.com/G4brym/GetCompany.info/raw/master/twitter.png)
+![twitter page](https://github.com/G4brym/GetCompany.info/raw/master/twitter.png)
